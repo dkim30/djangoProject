@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>New Item </title>
+
+    <style>
+        /* *{
+            border: 1px solid red;
+        } */
+
+        .header{
+            display: flex;
+            justify-content: space-between;
+        }
+        .welcome{
+            width: 300px;
+        }
+
+        .navbar{
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div class="navbar">
+                <form action="/home" method="POST">
+                    {% csrf_token %}
+                        <input type="submit" value="home">
+                </form>
+                <form action="/logout" method="POST">
+                    {% csrf_token %}
+                        <input type="submit" value="logout">
+                </form>
+            </div>
+
+            <h1>Create a New Wish List Item</h1>
+
+            
+                    
+                <fieldset>
+                    <legend>New Movie</legend>
+                    <form action="/add_item" method="POST">
+                        {% csrf_token %}
+                        <label for="item">Item/Product:</label>
+                        <input type="text" name="item">
+    
+                        <input type="submit" value="Add"> 
+                    </form>
+                </fieldset>
+
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+        </div>
+    </div>

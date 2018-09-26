@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard</title>
+    <style>
+
+        /* *{
+            border: 1px solid red;
+        } */
+
+        .header{
+            display: flex;
+            justify-content: space-between;
+        }
+        .welcome{
+            width: 300px;
+        }
+
+        .navbar{
+            width: 300px;
+        }
+
+        .wishlist{
+            width: 550px;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .wishlist h1{
+            margin-left: 150px;
+        }
+
+        .other_wishlist{
+            width: 550px;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .other_wishlist h1{
+            margin-left: 150px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div class="welcome">
+                <p>Hello, Daniel!
+        
+                </p>
+            </div>
+            <div class="navbar">
+                <form action="/logout" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="logout">
+                </form>
+            </div>
+        </div>
+
+        <div class="wishlist">
+
+            <h1>Your Wish List:</h1>
+            <table border="1">
+                <tr>
+                    <th>Item</th>
+                    <th>Date Added</th>
+                    <th>Added By</th>
+                    <th>Action</th>
+                </tr>
+                {% for wish in wishes %}
+                <tr>
+                    <td><a href="/wish/{{wish.id}}">{{wish.item}}</a></td>
+                    <td>{{wish.date_added}}</td>
+                    <td>{{wish.user.username}}</td>
+                    <td><a href="/addwish/{{wish.id}}"><button>Remove from my Wishlist
+                    </button></a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="other_wishlist">
+
+                <h1>Other Users' Wish List</h1>
+                <table border="1">
+                    <tr>
+                        <th>Item</th>
+                        <th>Date Added</th>
+                        <th>Added By</th>
+                        <th>Action</th>
+                    </tr>
+
+                {% for wish in wish_list %}
+                <tr>
+                    <td><a href="/wish/{{wish.id}}">{{wish.item}}</a></td>
+                    <td>{{wish.date_added}}</td>
+                    <td>{{wish.user.username}}</td>
+                    <td><a href="/removewish/{{wish.id}}"><button>Add to my wishlist</button></a></td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+
+        <form action="/create" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Add Item">
+        </form>
+
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Info</title>
+
+    <style>
+            /* *{
+                border: 1px solid red;
+            } */
+    
+            .header{
+                display: flex;
+                justify-content: space-between;
+            }
+            .welcome{
+                width: 300px;
+            }
+    
+            .navbar{
+                width: 300px;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div class="welcome">
+                <h1>{{wish.item}}</h1>
+            </div>
+            <div class="navbar">
+                <form action="/home" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="home">
+                </form>
+                <form action="/logout" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="logout">
+                </form>
+            </div>
+        </div>
+
+        <div class="info">
+            <p>Users who added this product/item under their wish list:</p>
+
+        
+            <!-- <p>{{wish.user.username}}</p> -->
+
+            <p>
+            {% for user in wish.favs.all %}
+                {{wish.user.name}}
+            {% endfor %}
+            </p>
+        
+                
+        </div>
+
+    </div>
+    
+</body>
+</html>

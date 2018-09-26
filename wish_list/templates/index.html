@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Wishlist</title>
+
+    <style>
+        .error{
+            color: red;
+            font-weight: bold;
+        }
+
+        .success{
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome!</h1>
+
+    <Fieldset>
+        <legend>Register</legend>
+        <form action="/register" method = 'POST'>
+            {% csrf_token %}
+
+        <label for="name">Name:</label>
+        <input type="text" name="name">
+
+        <label for="username">Username:</label>
+        <input type="text" name="username">
+
+        <label for="password">Password:</label>
+        <input type="password" name="password">
+
+        <label for="confirm_password">Confirm PW:</label>
+        <input type="password" name="confirm_password">
+
+        <label for="date">Date Hired:</label>
+        <input type="date" name="date">
+
+        <input type="submit" value="Register">
+
+        </form>
+    </Fieldset>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+    <Fieldset>
+        <legend>Login</legend>
+        <form action="/login" method="POST">
+            {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" name="username">
+
+        <label for="password">Password:</label>
+        <input type="password" name="password">
+
+        <input type="submit" value="Login">
+
+        </form>
+    </Fieldset>
+
+</body>
+</html>
